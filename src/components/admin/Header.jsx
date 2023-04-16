@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { BsFillSunFill } from 'react-icons/bs'
 import { useTheme } from '../../hooks'
+import AppSerchForm from '../form/AppSerchForm'
 
 export default function Header({ onAddMovieClick, onAddActorClick }) {
     const [showOptions, setShowOptioons] = useState(false)
@@ -12,9 +13,8 @@ export default function Header({ onAddMovieClick, onAddActorClick }) {
     const options = [{ title: 'Add Movie', onClick: onAddMovieClick },
     { title: 'Add Actor', onClick: onAddActorClick }]
     return (
-        <div className='flex items-center justify-between pb-2 relative '>
-            <input type="text"
-                className=" border-2 dark:border-dark-subtle border-light-subtle  dark:focus:border-white focus:border-primary  dark:text-white transition bg-transparent rounded text-lg p-1 outline-none" placeholder="serch movies..." />
+        <div className='flex items-center justify-between pb-2 relative p-3 '>
+            <AppSerchForm placeholder='Serch'/>
 
             <div className=' flex items-center space-x-3 '>
                 <button onClick={toggleTheme} className='dark:text-white p-2 dark:bg-dark-subtle bg-light-subtle rounded text-light-subtle' >
@@ -63,7 +63,7 @@ const CreatOptions = ({ options, visible, OnClose }) => {
 
     if (!visible) return null
     return (
-        <div id={containerID} ref={container} className=' absolute rounded right-4 top-12 flex flex-col dark:bg-secondary space-y-2  animate-scale bg-white drop-shadow-lg p-2'
+        <div id={containerID} ref={container} className=' absolute z-50 rounded right-4 top-12 flex flex-col dark:bg-secondary space-y-2  animate-scale bg-white drop-shadow-lg p-2'
             onAnimationEnd={(e) => {
                 if (e.target.classList.contains('animate-scale-reverse')) OnClose()
                 e.target.classList.remove('animate-scale')

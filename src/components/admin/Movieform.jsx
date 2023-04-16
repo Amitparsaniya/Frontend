@@ -47,7 +47,7 @@ const validteMovie =(movieInfo)=>{
   if(!title.trim()) return {error:"Title is missing!"}
   if(!storyline.trim()) return {error:"storyline is missing!"}
   if(!language.trim()) return {error:"language is missing!"}
-  if(!relaseDate.trim()) return {error:"relaseDate is missing!"}
+  if(!relaseDate.trim()) return {error:"relaseDatee is missing!"}
   if(!status.trim()) return {error:"status is missing!"}
   if(!type.trim()) return {error:"type is missing!"}
   // validation fr geners is an array or not
@@ -162,66 +162,48 @@ export default function Movieform({onSubmit}) {
     const {error}= validteMovie(movieInfo)
     if(error) return updateNotification('error',error)
 
-    // trailer,cast,genres,tags,writers
-    const {tags,geners,cast,writers,director,poster,relaseDate} =movieInfo
+    const {tags,geners,cast,writers,director,poster} =movieInfo
+    
+    const finalMovieInfo ={...movieInfo}
     const formData = new FormData()
-    formData.append('tags',JSON.stringify(tags))
-    // console.log(tags +"tags");
-    formData.append('geners',JSON.stringify(geners))
-    // console.log(geners +"geners");
+   finalMovieInfo.tags=JSON.stringify(tags)
+   console.log(tags);
+   finalMovieInfo.geners=JSON.stringify(geners)
 
-    // {
-    //   actor: {type: mongoose.Schema.Types.ObjectId,ref:'Actor'},
-    //   roleAs:String,
-    //   leadActor: Boolean
-  // }
-    // console.log(cast +"cast");
-    const finalCast = cast.map(c=>(
-    {
-        actor:c.profile.id,
-        roleAs:c.roleAs,
-        leadActor: c.leadActor
-      }))
-  // console.log(finalCast);
-    formData.append('cast',JSON.stringify(finalCast))
+   const finalcast = cast.map((c)=>({
+    actor:c.profile.id,
+    roleAs: c.roleAs,
+    leadActor:c.leadActor
+   }))
+   console.log(finalcast);
 
-    if(writers.length){
-      const finalwriters = writers.map(w => w.id)
-      formData.append('cast',JSON.stringify(finalwriters))
-    }
-    // console.log(writers + " writers");
-    if(director.id){
-      formData.append('director',director.id)
-    }
-    // console.log(director + "director");
-    if(poster){
-        formData.append('poster',poster)
-    }
+   finalMovieInfo.cast =JSON.stringify(finalcast)
 
-    for(let key in movieInfo){
-      formData.append(key,movieInfo[key])
-      // console.log(movieInfo);
-      // console.log(movieInfo[key]);
-    }
+   if(writers.length){
+    const finalWriters = writers.map(w=>w.id)
+    finalMovieInfo.writers =JSON.stringify(finalWriters)
+   }
+
+   if(director.id){
+    finalMovieInfo.director= director.id
+   }
+   
+
+   if(poster){
+    finalMovieInfo.poster =poster
+   }
+
+   for (let key in finalMovieInfo) {
+        formData.append(key,finalMovieInfo[key])    
+   }
+   console.log(movieInfo);
     onSubmit(formData)
-
-    // console.log(title +" title");
-    // console.log(storyline + " storyline");
-    // console.log(tags + " tags");
-    // console.log(cast + " cast");
-    // console.log(finalCast + " finalCast");
-    // console.log(writers +" writers");
-    // console.log( director + " director");
-    // console.log(poster + " poster");
-    // console.log(relaseDate +" relaseDate");
-
-
   }
 
   
 
   
-  const { title, storyline, director, writers: writers, cast,tags,geners,type,language,status} = movieInfo
+  const { title, storyline, director,  writers, cast,tags,geners,type,language,status,relaseDate} = movieInfo
   return (
     <>
     <form onSubmit={handleSubmit} className='flex space-x-3 p-1'>
@@ -280,7 +262,7 @@ export default function Movieform({onSubmit}) {
           </div>
             <CastForm  onSubmit={updateCast}/>
                </div>
-               <input type='date' className={commanInputClasses + " border-2 rounded p-1 w-auto "} onChange={handlechange} name='relaseDate' />
+               <input type='date' value={relaseDate} className={commanInputClasses + " border-2 rounded p-1 w-auto "} onChange={handlechange} name='relaseDate'  />
 
                 
                 <Submit value='upload' onClick={handleSubmit}  type="button"/>
@@ -340,20 +322,3 @@ const ViewAllBtn=({visible,children,onClick})=>{
     <button type="button" onClick={onClick} className=' dark:text-white text-primary hover:underline transition'>{children}</button>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

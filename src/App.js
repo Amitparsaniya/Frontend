@@ -21,6 +21,7 @@ export default function App() {
   return (
     <>
     <Navbar/>
+    
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/auth/signin" element={<Signin />} />

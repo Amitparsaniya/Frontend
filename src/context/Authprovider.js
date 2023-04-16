@@ -36,7 +36,7 @@ export const AuthContext= createContext()
       setAuthInfo({profile:{...user},isPending:false, isLoggedin:true,error:''})
 
       localStorage.setItem("auth-token",user.token)
-    }
+  }
        const isAuth =async()=>{
         const token= localStorage.getItem('auth-token')
         if(!token) return;

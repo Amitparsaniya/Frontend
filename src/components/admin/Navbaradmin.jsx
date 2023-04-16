@@ -8,8 +8,8 @@ import { useAuth } from '../../hooks'
 export default function Navbaradmin() {
     const {handlelogout} =useAuth()
     return (
-        <nav className=" w-48 min-h-screen bg-secondary border-r-gray-300 flex flex-col justify-between">
-            <div className=' flex flex-col justify-between pl-5 h-screen sticky top-0 '>
+        <nav className=" w-48 min-h-screen bg-secondary border-r-gray-300  flex flex-col justify-between ">
+            <div className=' flex flex-col justify-between pl-5 h-screen sticky border-r top-0 '>
                 <ul>
                     <li className=" mb-8">
                         <Link to="/">

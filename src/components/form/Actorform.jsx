@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import {ImSpinner6} from 'react-icons/im'
 import { useNotification } from '../../hooks'
@@ -29,7 +29,7 @@ const valideActor =({name,about,gender,avatar})=>{
    return {error: null}
 }
 
-export default function Actorform({title,btntitle,onSubmit,busy}) {
+export default function Actorform({title,btntitle,intialstate,onSubmit,busy}) {
   const [actorInfo, setActorInfo] = useState({...defaultActorInfo})
   const [selectedposterforUI, setselectedposterforUI] = useState('')
 
@@ -61,8 +61,13 @@ export default function Actorform({title,btntitle,onSubmit,busy}) {
 
         onSubmit(actorInfo)
       }
-
-      
+          
+      useEffect(()=>{
+        if(intialstate){
+          setActorInfo({...intialstate,avatar:null})
+          setselectedposterforUI(intialstate.avatar)
+        }
+      },[intialstate])
       
       const {name,about,gender} =actorInfo
   return (

@@ -47,7 +47,7 @@ export default function ForgetPassword() {
       <Container>
       <form onSubmit={handleSubmit} className={commonModelClasses +" w-96"}>
       <Title>please Enter your Email</Title>
-                <FormInput label="Email" onChange={handlechange} value={email} placeholder="amit@gmail.com" name="email" />
+                <FormInput label="Email" onChange={handlechange} value={email} placeholder="Email" name="email" />
                  <Submit value="Send link" />
 
                  <div className="flex justify-between">

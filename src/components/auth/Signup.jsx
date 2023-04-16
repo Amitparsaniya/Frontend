@@ -75,7 +75,7 @@ export default function Signup() {
         <form onSubmit={handleSubmit} className={commonModelClasses + " w-72"}>
           <Title>Sign up</Title>
           <FormInput value={name} onChange={handlechange} label="Name" placeholder="Amit Patel" name="name" />
-          <FormInput value={email} label="Email" placeholder="amit@gmail.com" name="email" onChange={handlechange} />
+          <FormInput value={email} label="Email" placeholder="Email" name="email" onChange={handlechange} />
           <FormInput value={password} label="Password" placeholder="*******" name="password" type="password" onChange={handlechange} />
           <Submit value="Sign up" />
 

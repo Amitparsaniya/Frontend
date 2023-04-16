@@ -25,7 +25,12 @@ export default function Serchprovider({children}) {
      const  serch = async(method,query,updaterFun)=>{
         const {error,results} = await method(query)
         if(error) return updateNotification('error',error)
-        if(!results.length) return setresultNotfound(true)
+        if(!results.length) {
+          setresults([])
+          updaterFun && updaterFun([])
+          return setresultNotfound(true)
+        }
+         setresultNotfound(false)
         setresults(results)
        updaterFun && updaterFun([...results])
       }
@@ -36,7 +41,7 @@ export default function Serchprovider({children}) {
         setserching(true)
         if(!query.trim()){
         updaterFun &&  updaterFun([])
-            resetSerch()
+          return   resetSerch()
         }
         debounceFun(method,query,updaterFun)
      }

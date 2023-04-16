@@ -40,9 +40,9 @@ export default function Movieupload({visible,onClose}) {
             setvideoUploaded(true)
 
         setVideoInfo({secure_url,public_id})
+        console.log({secure_url,public_id})
         return updateNotification('success',"Trailer upload sucessfully!")
     }
-    // console.log(VideoInfo)
 
     const handleTypeError = (error) => {
         updateNotification("error", error);
@@ -54,16 +54,22 @@ export default function Movieupload({visible,onClose}) {
         setvideoSelected(true)
 
         handleUploadTrailer(formData)
-        console.log(file +"file");
+        console.log(JSON.stringify(file) +"file");
 
     }
     const handleSubmit =async(data)=>{
-        if(!VideoInfo.secure_url || !VideoInfo.public_id) return updateNotification('error','Trailer is missing!')
+        try{
 
-        data.append('trailer',JSON.stringify(VideoInfo))
-           const res= await uploadMovie(data)
-           console.log(res +"res")
-           console.log(data +"data");
+            if(!VideoInfo.secure_url || !VideoInfo.public_id) return updateNotification('error','Trailer is missing!')
+            data.append('trailer',JSON.stringify(VideoInfo))
+            
+            const res= await uploadMovie(data)
+            console.log( JSON.stringify(res)  +" res")
+            onClose()
+            return updateNotification("success" ,"Movie Upload successfully!")
+        }catch(e){
+            console.log(e);
+        }
     }
 
     const getUploadProgessValue =()=>{
@@ -75,7 +81,7 @@ export default function Movieupload({visible,onClose}) {
 
     return (
         <>
-        <Modelscontainer  visbile={visible} >
+        <Modelscontainer  visbile={visible} onClose={onClose} >
 
             <Uploadprogress visible={!videoUploaded && videoSelected}
             message={getUploadProgessValue()} 

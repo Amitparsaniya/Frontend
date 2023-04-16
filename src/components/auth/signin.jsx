@@ -51,7 +51,7 @@ export default function Signin() {
 
 
   // useEffect(()=>{
-  //   // we move to move our user somewhere else
+  //   // we want to move to move our user somewhere else
   //     if(isLoggedin) navigate('/')
   // },[isLoggedin])
 
@@ -63,7 +63,7 @@ export default function Signin() {
         <Container>
             <form onSubmit={handleSubmit} className={commonModelClasses + " w-72"}>
                 <Title>Sign in</Title>
-                <FormInput label="Email"   value={email}  onChange={handlechange}placeholder="amit@gmail.com" name="email" />
+                <FormInput label="Email"   value={email}  onChange={handlechange}placeholder="Email" name="email" />
                  <FormInput label="Password"  value={password}  onChange={handlechange} placeholder="*******" type='password' name="password" /> 
                  <Submit value="Sign in" busy={isPending} />
 

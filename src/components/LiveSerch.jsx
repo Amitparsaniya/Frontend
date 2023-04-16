@@ -25,6 +25,7 @@ export default function LiveSearch({
   const closeSearch = () => {
     setDisplaySearch(false);
     setFocusedIndex(-1);
+    // -1 it usee bcs selection of results dont want when click on the input field
   };
 
   const handleOnBlur = () => {
@@ -48,6 +49,7 @@ export default function LiveSearch({
       nextCount = (focusedIndex + 1) % results.length;
     }
     if (key === "ArrowUp") {
+      // we dont want to go more up  than 1st result  so we can use % (modulo)
       nextCount = (focusedIndex + results.length - 1) % results.length;
     }
     if (key === "Escape") return closeSearch();

@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
-
 import { useLocation, useNavigate } from 'react-router-dom'; 
 import { resendEmailverificationToken, verifyUserEmail } from '../../api/auth';
 import { useAuth, useNotification } from '../../hooks';
-
 import { commonModelClasses } from '../../utils/theme'
 import Container from '../container'
 import FormContainer from '../form/FormContainer'
@@ -11,6 +9,7 @@ import Submit from '../form/submit'
 import Title from '../form/title'
 
 const OTP_LENGTH = 6
+// otp length used for numer of input field it will be custmized....
 
 const isValidOTP =(otp)=>{
     let valid =false
@@ -62,7 +61,7 @@ export default function EmailVerification() {
 
 
   }
-
+// e.key  ----it gives the value of key which key we press
   const  handlekeyDown  =({ key }, index)=>{
     if (key=== "Backspace"){
       focusPrevInputField(index)
@@ -89,7 +88,6 @@ export default function EmailVerification() {
   }, [activeOtpindex])
 
   useEffect(()=>{
-    
       if(!user) navigate('/not-found')
       if(isLoggedin && isVerified) navigate('/')
         // eslint-disable-next-line; react-hooks/exhaustive-deps
@@ -105,7 +103,7 @@ export default function EmailVerification() {
             <p className="text-center dark:text-dark-subtle text-light-subtle">OTP has been sent to your email</p>
           </div>
           <div className="flex justify-center items-center space-x-4">
-
+                 {/* above div use for seprate inuput box put map method inside above div */}
             {otp.map((_, index) => {
               return <input
                 ref={activeOtpindex === index ? inputRef : null}
